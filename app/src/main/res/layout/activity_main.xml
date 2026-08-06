@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#0C121D"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PHOTO CLOCK"
+        android:textColor="#FF9E00"
+        android:textStyle="bold"
+        android:textSize="32sp"
+        android:layout_marginBottom="40dp"/>
+
+    <ImageView
+        android:id="@+id/imgPreview"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginBottom="40dp"
+        android:background="@android:color/darker_gray"
+        android:scaleType="centerCrop"
+        android:src="@android:drawable/ic_menu_gallery"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnChangePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Choose Photo"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        app:backgroundTint="#FF9E00"/>
+
+</LinearLayout>

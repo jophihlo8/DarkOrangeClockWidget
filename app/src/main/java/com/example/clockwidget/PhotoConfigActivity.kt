@@ -2,42 +2,57 @@ package com.example.clockwidget
 
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import java.io.File
-import java.io.FileOutputStream
 
 class PhotoConfigActivity : AppCompatActivity() {
 
-    private val pickPhoto =
+    private val photoPicker =
         registerForActivityResult(
             ActivityResultContracts.PickVisualMedia()
         ) { uri ->
 
-            if (uri != null) {
+            if (uri == null) {
+                finish()
+                return@registerForActivityResult
+            }
 
-                savePhoto(uri)
+            val success = PhotoManager.savePhoto(
+                this,
+                uri
+            )
+
+            if (success) {
+
+                updateAllWidgets()
+
+                Toast.makeText(
+                    this,
+                    "Photo Updated",
+                    Toast.LENGTH_SHORT
+                ).show()
 
             } else {
 
-                finish()
+                Toast.makeText(
+                    this,
+                    "Failed to Save Photo",
+                    Toast.LENGTH_SHORT
+                ).show()
 
             }
+
+            finish()
 
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        pickPhoto.launch(
+        photoPicker.launch(
             PickVisualMediaRequest(
                 ActivityResultContracts.PickVisualMedia.ImageOnly
             )
@@ -45,49 +60,7 @@ class PhotoConfigActivity : AppCompatActivity() {
 
     }
 
-    private fun savePhoto(uri: Uri) {
-
-        try {
-
-            val input = contentResolver.openInputStream(uri)
-
-            val bitmap = BitmapFactory.decodeStream(input)
-
-            input?.close()
-
-            val file = File(filesDir, "widget_photo.png")
-
-            val out = FileOutputStream(file)
-
-            bitmap.compress(
-                Bitmap.CompressFormat.PNG,
-                100,
-                out
-            )
-
-            out.flush()
-
-            out.close()
-
-            updateWidget()
-
-            Toast.makeText(
-                this,
-                "Photo Updated",
-                Toast.LENGTH_SHORT
-            ).show()
-
-        } catch (e: Exception) {
-
-            e.printStackTrace()
-
-        }
-
-        finish()
-
-    }
-
-    private fun updateWidget() {
+    private fun updateAllWidgets() {
 
         val manager =
             AppWidgetManager.getInstance(this)
@@ -100,12 +73,12 @@ class PhotoConfigActivity : AppCompatActivity() {
                 )
             )
 
-        for (id in ids) {
+        ids.forEach {
 
             DarkOrangeClockWidget.updateAppWidget(
                 this,
                 manager,
-                id
+                it
             )
 
         }

@@ -9,22 +9,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ClockWidget">
 
+        <activity
+            android:name=".PhotoConfigActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ClockWidget"/>
+
         <receiver
             android:name=".DarkOrangeClockWidget"
             android:exported="true"
             android:label="@string/widget_label">
 
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="com.example.clockwidget.ACTION_UPDATE_CLOCK" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="com.example.clockwidget.ACTION_UPDATE_CLOCK"/>
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/widget_24h_clock_info" />
+                android:resource="@xml/widget_24h_clock_info"/>
+
         </receiver>
 
     </application>
+
 </manifest>

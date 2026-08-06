@@ -6,48 +6,7 @@ import kotlin.math.max
 
 object ClockRenderer {
 
-    private const val BACKGROUND = "#0C121D"
-    private const val RING = "#FF8C00"
-    private const val SHADOW = "#33000000"
-
-    fun createBackground(
-        context: Context,
-        size: Int
-    ): Bitmap {
-
-        val bitmap = Bitmap.createBitmap(
-            size,
-            size,
-            Bitmap.Config.ARGB_8888
-        )
-
-        val canvas = Canvas(bitmap)
-
-        drawBackground(
-            context,
-            canvas,
-            size
-        )
-
-        drawOuterRing(
-            canvas,
-            size
-        )
-
-        drawMinuteMarks(
-            canvas,
-            size
-        )
-
-        drawHourMarks(
-            canvas,
-            size
-        )
-
-        return bitmap
-    }
-
-    private fun drawBackground(
+    fun drawBackground(
         context: Context,
         canvas: Canvas,
         size: Int
@@ -74,7 +33,7 @@ object ClockRenderer {
         } else {
 
             canvas.drawColor(
-                Color.parseColor(BACKGROUND)
+                Color.parseColor("#0C121D")
             )
 
         }
@@ -98,7 +57,7 @@ object ClockRenderer {
 
     }
 
-    private fun drawOuterRing(
+    fun drawOrangeRing(
         canvas: Canvas,
         size: Int
     ) {
@@ -109,18 +68,11 @@ object ClockRenderer {
 
         paint.style = Paint.Style.STROKE
 
-        paint.strokeCap = Paint.Cap.ROUND
-
         paint.strokeWidth = size * 0.03f
 
-        paint.color = Color.parseColor(RING)
+        paint.strokeCap = Paint.Cap.ROUND
 
-        paint.setShadowLayer(
-            8f,
-            0f,
-            0f,
-            Color.parseColor(SHADOW)
-        )
+        paint.color = Color.parseColor("#FF8C00")
 
         canvas.drawCircle(
             radius,
@@ -131,107 +83,21 @@ object ClockRenderer {
 
     }
 
-    private fun drawMinuteMarks(
+    fun drawCenter(
         canvas: Canvas,
         size: Int
     ) {
 
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-        paint.color = Color.WHITE
+        paint.color = Color.parseColor("#FF8C00")
 
-        paint.strokeCap = Paint.Cap.ROUND
-
-        paint.strokeWidth = max(
-            2f,
-            size * 0.004f
+        canvas.drawCircle(
+            size / 2f,
+            size / 2f,
+            size * 0.04f,
+            paint
         )
-
-        val cx = size / 2f
-        val cy = size / 2f
-
-        val outer = size * 0.46f
-        val inner = size * 0.43f
-
-        for (i in 0 until 60) {
-
-            if (i % 5 == 0)
-                continue
-
-            val angle = Math.toRadians(
-                (i * 6 - 90).toDouble()
-            )
-
-            val sx =
-                (cx + inner * kotlin.math.cos(angle)).toFloat()
-
-            val sy =
-                (cy + inner * kotlin.math.sin(angle)).toFloat()
-
-            val ex =
-                (cx + outer * kotlin.math.cos(angle)).toFloat()
-
-            val ey =
-                (cy + outer * kotlin.math.sin(angle)).toFloat()
-
-            canvas.drawLine(
-                sx,
-                sy,
-                ex,
-                ey,
-                paint
-            )
-
-        }
-
-    }
-
-    private fun drawHourMarks(
-        canvas: Canvas,
-        size: Int
-    ) {
-
-        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-
-        paint.color = Color.parseColor(RING)
-
-        paint.strokeCap = Paint.Cap.ROUND
-
-        paint.strokeWidth = size * 0.012f
-
-        val cx = size / 2f
-        val cy = size / 2f
-
-        val outer = size * 0.46f
-        val inner = size * 0.39f
-
-        for (i in 0 until 12) {
-
-            val angle = Math.toRadians(
-                (i * 30 - 90).toDouble()
-            )
-
-            val sx =
-                (cx + inner * kotlin.math.cos(angle)).toFloat()
-
-            val sy =
-                (cy + inner * kotlin.math.sin(angle)).toFloat()
-
-            val ex =
-                (cx + outer * kotlin.math.cos(angle)).toFloat()
-
-            val ey =
-                (cy + outer * kotlin.math.sin(angle)).toFloat()
-
-            canvas.drawLine(
-                sx,
-                sy,
-                ex,
-                ey,
-                paint
-            )
-
-        }
 
     }
 

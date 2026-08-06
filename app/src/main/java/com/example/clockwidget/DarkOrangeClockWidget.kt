@@ -93,7 +93,7 @@ class DarkOrangeClockWidget : AppWidgetProvider() {
             val density = context.resources.displayMetrics.density
             val bitmapSize = (targetSize * density).toInt().coerceAtLeast(MIN_BITMAP_SIZE)
 
-            val bitmap = renderClockBitmap(bitmapSize)
+            val bitmap = renderClockBitmap(context, bitmapSize)
             val views = RemoteViews(context.packageName, R.layout.widget_24h_clock)
             views.setImageViewBitmap(R.id.clock_view, bitmap)
 
@@ -143,8 +143,12 @@ class DarkOrangeClockWidget : AppWidgetProvider() {
             }
         }
 
-        fun renderClockBitmap(size: Int): Bitmap {
+        fun renderClockBitmap(
+            context: Context,
+            size: Int
+        ): Bitmap {
             val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+            val photo = PhotoManager.loadPhoto(context)
             val canvas = Canvas(bitmap)
 
             val cx = size / 2f
@@ -152,11 +156,21 @@ class DarkOrangeClockWidget : AppWidgetProvider() {
             val scaleFactor = size / 600f
             val outerRadius = size / 2f - 16f * scaleFactor
 
-            val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                color = COLOR_NAVY
-                style = Paint.Style.FILL
+            // Photo / Background rendering
+            if (photo != null) {
+                val scaled = Bitmap.createScaledBitmap(photo, size, size, true)
+                canvas.drawBitmap(scaled, 0f, 0f, null)
+                val overlay = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                    color = Color.argb(90, 0, 0, 0)
+                }
+                canvas.drawCircle(cx, cy, outerRadius, overlay)
+            } else {
+                val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                    color = COLOR_NAVY
+                    style = Paint.Style.FILL
+                }
+                canvas.drawCircle(cx, cy, outerRadius, bgPaint)
             }
-            canvas.drawCircle(cx, cy, outerRadius, bgPaint)
 
             val bezelPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
                 color = COLOR_ORANGE

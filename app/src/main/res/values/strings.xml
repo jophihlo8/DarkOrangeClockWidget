@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Dark Orange Clock</string>
+    <string name="widget_label">Dark Orange 24H Clock</string>
+    <string name="widget_description">Dark navy analog clock with bold orange 12-hour and inner 24-hour markings.</string>
+</resources>

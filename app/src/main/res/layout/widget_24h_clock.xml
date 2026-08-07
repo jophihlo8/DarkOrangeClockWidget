@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:padding="4dp">
 
-    <!-- Gallery background photo -->
+    <!-- The entire face - background/photo, ring, ticks, numerals and
+         hands - is rendered into one bitmap by ClockRenderer and set
+         here, since RemoteViews can't host a live custom View. -->
     <ImageView
-        android:id="@+id/widget_background_image"
+        android:id="@+id/widget_clock_face"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/widget_label" />
 
-    <!-- 24-Hour Digital Clock Display -->
-    <TextClock
-        android:id="@+id/textClock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:format12Hour="HH:mm"
-        android:format24Hour="HH:mm"
-        android:textColor="#FF5722"
-        android:textSize="36sp"
-        android:textStyle="bold" />
-
-</RelativeLayout>
+</FrameLayout>

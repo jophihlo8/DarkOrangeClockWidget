@@ -27,7 +27,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/dark_orange_clock_widget_info" />
+                android:resource="@xml/widget_24h_clock_info" />
         </receiver>
 
     </application>

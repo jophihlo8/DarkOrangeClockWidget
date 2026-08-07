@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Add this ImageView behind your existing text views -->
+    <!-- Background Image view for user selected photo -->
     <ImageView
         android:id="@+id/widget_background_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
-    <!-- Your existing clock text views remain here -->
+    <!-- Keep your existing clock layout views below -->
 
 </RelativeLayout>

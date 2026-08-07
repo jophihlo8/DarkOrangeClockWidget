@@ -3,6 +3,6 @@
     android:minWidth="180dp"
     android:minHeight="110dp"
     android:updatePeriodMillis="1800000"
-    android:configure="com.example.darkorangeclockwidget.WidgetConfigActivity"
+    android:configure="com.example.clockwidget.PhotoConfigActivity"
     android:initialLayout="@layout/widget_24h_clock">
 </appwidget-provider>

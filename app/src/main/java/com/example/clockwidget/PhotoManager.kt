@@ -7,107 +7,51 @@ import android.net.Uri
 import java.io.File
 import java.io.FileOutputStream
 
+/**
+ * Saves, loads and removes the background photo for each widget instance.
+ * Every appWidgetId gets its own file (widget_bg_<id>.png) so multiple
+ * widgets on the home screen can each show a different photo. This is the
+ * single source of truth for photo storage - both PhotoConfigActivity and
+ * the widget provider go through here.
+ */
 object PhotoManager {
 
-    private const val PHOTO_NAME = "widget_photo.png"
+    private fun photoFile(context: Context, appWidgetId: Int): File =
+        File(context.filesDir, "widget_bg_$appWidgetId.png")
 
-    fun savePhoto(
-        context: Context,
-        uri: Uri
-    ): Boolean {
-
+    fun savePhoto(context: Context, appWidgetId: Int, uri: Uri): Boolean {
         return try {
-
-            val input =
-                context.contentResolver.openInputStream(uri)
-
-            val bitmap =
+            val bitmap = context.contentResolver.openInputStream(uri)?.use { input ->
                 BitmapFactory.decodeStream(input)
+            } ?: return false
 
-            input?.close()
-
-            val file =
-                File(
-                    context.filesDir,
-                    PHOTO_NAME
-                )
-
-            val output =
-                FileOutputStream(file)
-
-            bitmap.compress(
-                Bitmap.CompressFormat.PNG,
-                100,
-                output
-            )
-
-            output.flush()
-
-            output.close()
+            FileOutputStream(photoFile(context, appWidgetId)).use { output ->
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, output)
+            }
 
             true
-
         } catch (e: Exception) {
-
             e.printStackTrace()
-
             false
-
         }
-
     }
 
-    fun loadPhoto(
-        context: Context
-    ): Bitmap? {
+    fun loadPhoto(context: Context, appWidgetId: Int): Bitmap? {
+        val file = photoFile(context, appWidgetId)
+        if (!file.exists()) return null
 
         return try {
-
-            val file =
-                File(
-                    context.filesDir,
-                    PHOTO_NAME
-                )
-
-            if (!file.exists())
-                return null
-
-            BitmapFactory.decodeFile(
-                file.absolutePath
-            )
-
+            BitmapFactory.decodeFile(file.absolutePath)
         } catch (e: Exception) {
-
             null
-
         }
-
     }
 
-    fun deletePhoto(
-        context: Context
-    ) {
-
-        val file =
-            File(
-                context.filesDir,
-                PHOTO_NAME
-            )
-
-        if (file.exists())
-            file.delete()
-
+    fun deletePhoto(context: Context, appWidgetId: Int) {
+        val file = photoFile(context, appWidgetId)
+        if (file.exists()) file.delete()
     }
 
-    fun hasPhoto(
-        context: Context
-    ): Boolean {
-
-        return File(
-            context.filesDir,
-            PHOTO_NAME
-        ).exists()
-
-    }
-
+    fun hasPhoto(context: Context, appWidgetId: Int): Boolean =
+        photoFile(context, appWidgetId).exists()
 }

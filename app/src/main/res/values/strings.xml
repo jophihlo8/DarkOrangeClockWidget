@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Dark Orange Clock</string>
     <string name="widget_label">Dark Orange 24H Clock</string>
-    <string name="widget_description">Dark navy analog clock with bold orange 12-hour and inner 24-hour markings.</string>
+    <string name="widget_description">Dark navy analog clock face with bold orange 12-hour numerals and matching muted 24-hour numerals, plus an optional photo background.</string>
+    <string name="add_widget_button">Add Widget to Home Screen</string>
+    <string name="pin_widget_unsupported">Long-press your home screen, then choose Widgets to add Dark Orange Clock</string>
+    <string name="photo_load_failed">Couldn\'t load that photo, try another one</string>
 </resources>

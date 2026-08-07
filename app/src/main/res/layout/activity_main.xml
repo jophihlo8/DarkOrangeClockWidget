@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PHOTO CLOCK"
+        android:text="@string/app_name"
         android:textColor="#FF9E00"
         android:textStyle="bold"
         android:textSize="32sp"
@@ -22,15 +22,14 @@
         android:layout_width="220dp"
         android:layout_height="220dp"
         android:layout_marginBottom="40dp"
-        android:background="@android:color/darker_gray"
-        android:scaleType="centerCrop"
-        android:src="@android:drawable/ic_menu_gallery"/>
+        android:contentDescription="@string/widget_label"
+        android:scaleType="fitCenter"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnChangePhoto"
+        android:id="@+id/btnAddWidget"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="Choose Photo"
+        android:text="@string/add_widget_button"
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textColor="#FFFFFF"

@@ -9,7 +9,7 @@
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
         <activity
-            android:name=".WidgetConfigActivity"
+            android:name="com.example.clockwidget.PhotoConfigActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -17,7 +17,7 @@
         </activity>
 
         <receiver
-            android:name=".DarkOrangeClockWidgetProvider"
+            android:name="com.example.clockwidget.DarkOrangeClockWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

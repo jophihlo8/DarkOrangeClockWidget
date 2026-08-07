@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dp">
+    android:layout_height="match_parent">
 
+    <!-- Add this ImageView behind your existing text views -->
     <ImageView
-        android:id="@+id/clock_view"
+        android:id="@+id/widget_background_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/widget_description"
-        android:scaleType="fitCenter" />
+        android:scaleType="centerCrop" />
 
-</FrameLayout>
+    <!-- Your existing clock text views remain here -->
+
+</RelativeLayout>

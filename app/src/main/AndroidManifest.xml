@@ -8,7 +8,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
-        <!-- Widget Configuration / Image Picker Activity -->
         <activity
             android:name=".WidgetConfigActivity"
             android:exported="true">
@@ -17,7 +16,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Widget Receiver -->
         <receiver
             android:name=".DarkOrangeClockWidgetProvider"
             android:exported="true">

@@ -1,37 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<application
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/Theme.ClockWidget">
 
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <activity
+        android:name=".PhotoConfigActivity"
+        android:exported="false" />
 
-    <application
-        android:allowBackup="true"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.ClockWidget">
+    <activity
+        android:name=".MainActivity"
+        android:exported="true">
 
-        <activity
-            android:name=".PhotoConfigActivity"
-            android:exported="false"
-            android:theme="@style/Theme.ClockWidget"/>
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
 
-        <receiver
-            android:name=".DarkOrangeClockWidget"
-            android:exported="true"
-            android:label="@string/widget_label">
+    </activity>
 
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="android.intent.action.TIME_SET"/>
-                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
-                <action android:name="com.example.clockwidget.ACTION_UPDATE_CLOCK"/>
-            </intent-filter>
+    <receiver
+        android:name=".DarkOrangeClockWidget"
+        android:exported="true"
+        android:label="@string/widget_label">
 
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_24h_clock_info"/>
+        <intent-filter>
+            <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            <action android:name="android.intent.action.TIME_SET" />
+            <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            <action android:name="com.example.clockwidget.ACTION_UPDATE_CLOCK" />
+        </intent-filter>
 
-        </receiver>
+        <meta-data
+            android:name="android.appwidget.provider"
+            android:resource="@xml/widget_24h_clock_info" />
 
-    </application>
+    </receiver>
 
-</manifest>
+</application>
